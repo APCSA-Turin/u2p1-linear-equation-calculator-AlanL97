@@ -14,12 +14,11 @@ public class LinearCalculator{
     //You will have to parse the string into 4 integers, representing the 2 points.
     public LinearCalculator(String coord1, String coord2){ // <--add 2 string parameters to this constructor
         int mid = coord1.indexOf(",");
-        x1 = Integer.parseInt(coord1.substring(1, mid));
-        y1 = Integer.parseInt(coord1.substring(mid+1, coord1.length()-1));
+        x1 = Integer.parseInt(coord1.substring(1, mid));  //uses parseInt method to parse the string into integers
+        y1 = Integer.parseInt(coord1.substring(mid+1, coord1.length()-1)); //uses an integer "mid" which is the index of "," so that no matter how long the number is in the string, it can parse it into an integer
         mid = coord2.indexOf(",");
         x2 = Integer.parseInt(coord2.substring(1, mid));
         y2 = Integer.parseInt(coord2.substring(mid+1, coord2.length()-1));
-
     }
 
 
@@ -62,15 +61,15 @@ public class LinearCalculator{
     //distance() -> returns a double. 
     //calculates the distance between the two points to the nearest HUNDREDTH and returns the value.
     public double distance() {
-        double distance = Math.sqrt(Math.pow(xDistance(), 2)+Math.pow(yDistance(), 2));
+        double distance = Math.sqrt(Math.pow(xDistance(), 2)+Math.pow(yDistance(), 2)); //uses pythagorean theorem to find the distance bwteween the two points
         return roundedToHundredth(distance);
     }
     //yInt() -> returns a double.
     //calculates the y intercept of the equation and returns the value to the nearest HUNDREDTH
     //if y-int if undefined, should return -999.99
     public double yInt(){
-        if (!(x1 == x2)) {
-            double yInt = y1-slope()*x1;
+        if (!(x1 == x2)) { //There can only be no y=intercept if the two x values are the same
+            double yInt = y1-slope()*x1; //substitutes y1 into y, x1 into x, and slope() into m in y=mx+b and then subtracts y by mx to get b, the y-intercept
             return roundedToHundredth(yInt);
         } else{
             return -999.99;
@@ -84,7 +83,7 @@ public class LinearCalculator{
         if (x1 == x2) {
             return -999.99;
         } else {
-            double slope = (double) yDistance()/xDistance();
+            double slope = (double) yDistance()/xDistance(); //slope is (y2-y1)/(x2-x1)
             return roundedToHundredth(slope);
         }
     }
@@ -97,11 +96,11 @@ public class LinearCalculator{
         if (slope() == -999.99) {
             return "undefined";
         } else {
-            if (yInt() == 0.0) {
+            if (yInt() == 0.0) { //if there is no y-intercept, the equation will just be y=mx
                 return "y=" + slope() + "x";
-            } else if (slope() == 0) {
+            } else if (slope() == 0) { //if there is no slope. the equation will just be y=b
                 return "y=" + yInt();
-            } else if (yInt() < 0) {
+            } else if (yInt() < 0) { //this else if statement prevents the method from returning y=mx+-b
                 return "y=" + slope() + "x" + yInt();
             } else {
                 return "y=" + slope() + "x+" + yInt();
